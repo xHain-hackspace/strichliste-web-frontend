@@ -58,6 +58,7 @@ export interface Account {
 interface Article {
   enabled: boolean;
   autoOpen: boolean;
+  tagFilter: string;
 }
 
 // tslint:disable-next-line:interface-name
@@ -135,6 +136,7 @@ export const initialState = {
   article: {
     enabled: false,
     autoOpen: false,
+    tagFilter: ""
   },
   common: { idleTimeout: 30000 },
   paypal: {

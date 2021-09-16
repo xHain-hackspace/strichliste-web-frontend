@@ -7,6 +7,8 @@ import { ArticleValidator } from './validator';
 import { Flex, Input, CancelButton, Button } from '../../bricks';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
+import { useSettings } from '../../store';
+
 
 interface Props {
   userId: string;
@@ -20,6 +22,7 @@ export const ArticleSelectionBubbles = (props: Props) => {
   const dispatch = useDispatch();
   const intl = useIntl();
   const [query, setQuery] = React.useState('');
+  const settings = useSettings();
 
   React.useEffect(() => {
     startLoadingArticles(dispatch, true);
@@ -41,6 +44,11 @@ export const ArticleSelectionBubbles = (props: Props) => {
             .filter(
               (item) =>
                 !query || item.name.toLowerCase().includes(query.toLowerCase())
+            )
+            .filter(
+              (item) => {
+                return !settings.article.tagFilter || item.tags.some((tag) => tag.tag === settings.article.tagFilter)
+              }
             )
             .slice(0, ARTICLE_BUBBLE_LIMIT)
             .map((item) => (
