@@ -35,36 +35,39 @@ export const ArticleSelectionBubbles = (props: Props) => {
         />
         <CancelButton margin="0 0 0 1rem" onClick={props.onCancel} />
       </Flex>
-      <Flex margin="2rem 0 0 0" flexWrap="wrap" justifyContent="center">
-        {items
-          .filter(
-            (item) =>
-              !query || item.name.toLowerCase().includes(query.toLowerCase())
-          )
-          .slice(0, ARTICLE_BUBBLE_LIMIT)
-          .map((item) => (
-            <ArticleValidator
-              key={item.name}
-              userId={props.userId}
-              value={item.amount}
-              render={(isValid) => (
-                <Button
-                  primary
-                  disabled={!isValid}
-                  onClick={() => {
-                    if (isValid) {
-                      props.onSelect(item);
-                    }
-                  }}
-                  padding="0.5rem"
-                  margin="0.3rem"
-                >
-                  {item.name} | <Currency hidePlusSign value={item.amount} />
-                </Button>
-              )}
-            />
-          ))}
-      </Flex>
-    </div>
+      <div style={{ width: '80vw', position: 'relative', left: 'calc(-40vw + 50%)' }}>
+        <Flex margin="2rem 0 0 0" flexWrap="wrap" justifyContent="center">
+          {items
+            .filter(
+              (item) =>
+                !query || item.name.toLowerCase().includes(query.toLowerCase())
+            )
+            .slice(0, ARTICLE_BUBBLE_LIMIT)
+            .map((item) => (
+              <ArticleValidator
+                key={item.name}
+                userId={props.userId}
+                value={item.amount}
+                render={(isValid) => (
+                  <Button
+                    primary
+                    disabled={!isValid}
+                    style={{ fontSize: '140%' }}
+                    onClick={() => {
+                      if (isValid) {
+                        props.onSelect(item);
+                      }
+                    }}
+                    padding="1rem"
+                    margin="0.3rem"
+                  >
+                    {item.name} | <Currency hidePlusSign value={item.amount} />
+                  </Button>
+                )}
+              />
+            ))}
+        </Flex>
+      </div>
+    </div >
   );
 };
